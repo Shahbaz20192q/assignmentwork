@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/stylesheets/dashboard.css">
+    <title>Dashboard Withdraws Edit form</title>
+</head>
+<body>
+  <%include ./parshies/menu.ejs%>
+  <div class="content">
+    <div class="title-info">
+        <p>withdraw edit form</p>
+        <i class="fa fa-align-justify three-line" onclick="toggle()" aria-hidden="true"></i>
+   </div>
+   <div class="tableDiv">
+      <table>
+        <thead>
+          <tr>
+            <td>Id</td>
+            <td>Bank Name</td>
+            <td>Account Number</td>
+            <td>Amount</td>
+            <td>Account Holder</td>
+            <td>Status</td>
+            <td>Reason</td>
+            <td>Update</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% user.withdraw.reverse().forEach(function(elem){ %>
+          <tr>
+            <td><%=elem._id%></td>
+            <td><%=elem.bankName%></td>
+            <td><%=elem.accountNo%></td>
+            <td><%=elem.amount%></td>
+            <td><%=elem.accountHolder%></td>
+            <form action="/editwithdrawform/<%=elem._id%>" method="post">
+              <td>
+                <select name="status">
+            <option value="Pending" <% if (elem.status === 'Pending') { %>selected<% } %>>Pending</option>
+            <option value="Success" <% if (elem.status === 'Success') { %>selected<% } %>>Success</option>
+            <option value="Fail" <% if (elem.status === 'Fail') { %>selected<% } %>>Fail</option>
+          </select>
+                <!-- <input type="text" name="status" value="<%=elem.status%>" /> -->
+              </td>
+              <td>
+                <input type="text" name="reason" placeholder="<%=elem.reason%>" />
+              </td>
+              <td><input type="submit" value="Update" /></td>
+            </form>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+   </div>
+  </div>
+</body>
+</html>

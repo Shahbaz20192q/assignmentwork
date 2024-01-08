@@ -1,0 +1,130 @@
+<% include ./partials/header.ejs %>
+<% include ./other_pages/partials/navbar.ejs %>
+<style>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+</style>
+<div class="form_wrapper">
+  <div class="form_container">
+    <div class="title_container">
+      <h2>Register Your Accouant</h2>
+    </div>
+    <div class="row clearfix">
+      <div class="">
+        <form action="/register" method="post">
+          <div class="row clearfix">
+            <div class="col_half">
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                <input type="text" name="firstName" placeholder="First Name" />
+              </div>
+            </div>
+            <div class="col_half">
+              <div class="input_field">
+                <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="input_field">
+            <span><i aria-hidden="true" class="fa fa-user"></i></span>
+            <input
+              type="text"
+              name="username"
+              placeholder="User Name"
+              required
+            />
+          </div>
+          <div class="input_field">
+            <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+            <input type="email" name="email" placeholder="Email" required />
+          </div>
+        
+          <div class="input_field">
+            <span><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span>
+            <input
+              type="number"
+              name="mobileNumber"
+              placeholder="Whatsapp Number"
+              required
+            />
+          </div>
+          <div class="input_field">
+            <span><i class="fa-solid fa-people-group" aria-hidden="true"></i></i></span>
+            <input
+              type="text"
+              name="referralCode"
+              placeholder="Referral Code"
+            />
+          </div>
+          <div class="input_field">
+            <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <div class="input_field">
+            <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+            <input
+              type="password"
+              name="cpassword"
+              id="cpassword"
+              placeholder="Re-type Password"
+              required
+            />
+            <p id="ferr" style="color: red; display: none">
+              Please enter same password
+            </p>
+          </div>
+          <div class="input_field select_option">
+            <select name="gender">
+              <option>Select Your Gender</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+            <div class="select_arrow"></div>
+          </div>
+          <input class="button" type="submit" id="submitBtn" value="Register" />
+          <p>
+            Already have an account
+            <a href="/login" style="color: blue; text-decoration: underline"
+              >Login</a
+            >
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const password = document.querySelector("#password");
+  const cpassword = document.querySelector("#cpassword");
+  const submitBtn = document.querySelector("#submitBtn");
+  const ferr = document.getElementById("ferr");
+
+  cpassword.addEventListener("input", function () {
+    if (password.value !== cpassword.value) {
+      submitBtn.style.backgroundColor = "red";
+      submitBtn.style.pointerEvents = "none";
+      ferr.style.display = "block";
+    } else {
+      submitBtn.style.backgroundColor = "#000000";
+      submitBtn.style.pointerEvents = "auto";
+      ferr.style.display = "none";
+    }
+  });
+</script>
+<% include ./other_pages/partials/footer.ejs %>

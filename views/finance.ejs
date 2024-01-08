@@ -1,0 +1,25 @@
+<% include ./partials/header.ejs %> <% include ./other_pages/partials/navbar.ejs
+%>
+
+<main class="main-section">
+  <div class="container-section">
+    <div class="image-div">
+      <img src="/images/uploads/<%=user.profileImage%>" class="image" alt="" />
+    </div>
+    <div class="finance-section">
+      <span class="income-span" id="lyout-incomSpat"
+        ><div class="income"><span>Balance :</span> <%=user.income%></div></span
+      >
+      <span class="deposit-span finance-btn-span"
+        ><a class="finance-btn" href="/profile/finance/deposit">Deposit</a></span
+      >
+      <span class="income-span"
+        ><div class="income"><span>Balance :</span> <%=user.income%></div></span
+      >
+      <span class="withdraw-span finance-btn-span"
+        ><a class="finance-btn" href="/profile/finance/withdraw">Withdraw</a></span
+      >
+    </div>
+  </div>
+</main>
+<% include ./other_pages/partials/footer.ejs %>

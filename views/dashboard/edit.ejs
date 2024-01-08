@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/dashboard.css" />
+    <title>withdraw</title>
+  </head>
+  <body>
+    <%include ./parshies/menu.ejs%>
+    <div class="content">
+      <div class="title-info">
+        <p>Members edit form</p>
+        <i
+          class="fa fa-align-justify three-line"
+          onclick="toggle()"
+          aria-hidden="true"
+        ></i>
+      </div>
+      <div class="tableDiv">
+        <table>
+          <thead>
+            <tr>
+              <td>User Name</td>
+
+              <td>First Name</td>
+
+              <td>Last Name</td>
+
+              <td>Gendar</td>
+
+              <td>email</td>
+
+              <td>Mobile Number</td>
+
+              <td>Verified</td>
+
+              <td>Plane</td>
+
+              <td>Income</td>
+
+              <td>Assignment</td>
+
+              <td>Edit</td>
+            </tr>
+          </thead>
+          <tbody>
+            <form action="/edit/<%=user.username%>" method="post">
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    name="username"
+                    value="<%=user.username%>"
+                  />
+                </td>
+
+                <td>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value="<%=user.firstName%>"
+                  />
+                </td>
+
+                <td>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value="<%=user.lastName%>"
+                  />
+                </td>
+
+                <td>
+                  <input type="text" name="gender" value="<%=user.gender%>" />
+                </td>
+
+                <td>
+                  <input type="email" name="email" value="<%=user.email%>" />
+                </td>
+
+                <td>
+                  <input
+                    type="number"
+                    name="mobileNumber"
+                    value="<%=user.mobileNumber%>"
+                  />
+                </td>
+
+                <!-- <td> <input type="text" name="verified" value="<%=user.verified%>" /> </td> -->
+
+                <td>
+                  <select name="verified">
+                    <option><%=user.verified%></option>
+                    <option value="false">False</option>
+                    <option value="true">True</option>
+                  </select>
+                </td>
+
+                <td>
+                  <select name="plane">
+                    <option><%=user.plane%></option>
+                    <option value="5000">5000</option>
+                    <option value="7000">7000</option>
+                  </select>
+                </td>
+
+                <td>
+                  <input
+                    type="number"
+                    id="income"
+                    name="income"
+                    value="<%=user.income%>"
+                  />
+                </td>
+
+                <td><%=user.posts.length%></td>
+                <td><input type="submit" value="Update" /></td>
+              </tr>
+            </form>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

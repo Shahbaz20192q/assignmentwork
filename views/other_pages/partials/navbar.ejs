@@ -1,0 +1,32 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<header class="header">
+  <div class="logo"><a href="/home">Logo</a></div>
+  <nav class="navebar">
+    <ul class="unorder-list">
+      <% if (!navDinamic) { %>
+        <!-- Display when user is not logged in -->
+        <li class="list-item" id="register-link"><a href="/">Register</a></li>
+        <li class="list-item" id="login-link"><a href="/login">Login</a></li>
+      <% } else { %>
+        <!-- Display when user is logged in -->
+        <li class="list-item"><a href="/home">Home</a></li>
+        <li class="list-item"><a href="">Help</a></li>
+        <li class="list-item"><a href="">Blogs</a></li>
+        <li class="list-item"><a href="/profile">Profile</a></li>
+        <li class="list-item" id="logout-link"><a href="/logout">Logout</a></li>
+      <% } %>
+    </ul>
+  </nav>
+  <!-- <i class="bi bi-list icon" id="hamburger-icon"></i> -->
+  <div class="icon" id="hamburger-icon">
+    <div class="icondiv"></div>
+    <div class="icondiv"></div>
+    <div class="icondiv"></div>
+  </div>
+</header>

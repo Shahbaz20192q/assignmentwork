@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/dashboard.css" />
+    <title>Dashboard Withdraws Edit form</title>
+  </head>
+  <body>
+    <%include ./parshies/menu.ejs%>
+    <div class="content">
+      <div class="title-info">
+        <p>Deposits edit form</p>
+        <form action="/dashbord/deposit" method="get" class="search_form">
+          <input
+            type="text"
+            name="search"
+            placeholder="Search by ID"
+            value="<%=search %>"
+          />
+          <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+        <i class="fa fa-align-justify three-line" onclick="toggle()" aria-hidden="true"></i>
+      </div>
+      <div class="tableDiv">
+        <table>
+          <thead>
+            <tr>
+              <td>Date</td>
+
+              <td>Time</td>
+              
+              <td>ID</td>
+
+              <td>Deposit Account</td>
+
+              <td>Method</td>
+
+              <td>User Name</td>
+
+              <td>Bank Name</td>
+
+              <td>Account Number</td>
+
+              <td>Amount</td>
+
+              <td>TID</td>
+
+              <td>Account Holder</td>
+
+              <td>Status</td>
+
+              <td>Edit</td>
+            </tr>
+          </thead>
+          <% users.reverse().forEach(elem => { %>
+          <tbody>
+            <tr>
+              <td>
+                <span><%=elem.date.getDay()%></span>-
+                <span><%=elem.date.getMonth()+1%></span>-
+                <span><%=elem.date.getFullYear()%></span>
+              </td>
+              <td>
+                <span><%=elem.date.getHours()%></span>:
+                <span><%=elem.date.getMinutes()%></span>:
+                <span><%=elem.date.getSeconds()%></span>
+              </td>
+
+              <td><%=elem._id%></td>
+
+              <td><%=elem.depositNo%></td>
+
+              <td><%=elem.method%></td>
+
+              <td><%=elem.user.username%></td>
+
+              <td><%=elem.bankName%></td>
+
+              <td><%=elem.accountNo%></td>
+
+              <td><%=elem.amount%></td>
+
+              <td><%=elem.tid%></td>
+
+              <td><%=elem.accountHolder%></td>
+
+              <td><%=elem.status%></td>
+
+              <td><a href="/editdepositform/<%=elem.user._id%>">Edit</a></td>
+            </tr>
+          </tbody>
+          <% }); %>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

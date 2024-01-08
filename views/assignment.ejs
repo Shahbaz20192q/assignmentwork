@@ -1,0 +1,116 @@
+<% include ./partials/header.ejs %>
+<% include ./other_pages/partials/navbar.ejs %>
+
+<div class="assignment-wreper">
+  <iframe id="show-pdf" src=""></iframe>
+  <div>
+    <form
+      id="assignmentForm"
+      action="/post"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <div class="input_field">
+        <label for="file-input"
+          ><i id="plus-icon" class="fa-solid fa-plus"></i
+        ></label>
+        <input
+          type="file"
+          name="file"
+          id="file-input"
+          accept="application/pdf"
+        />
+        <input
+          type="text"
+          placeholder="Enter topic name"
+          id="topic-input"
+          name="topic"
+        />
+      </div>
+      <input id="submitBtn" class="assignmentSubmitBtn" type="submit" value="Submit Assignment" />
+    </form>
+  </div>
+  <div class="assignments-div">
+    <% user.posts.reverse().forEach(function(post){ %>
+    <div class="assignment">
+      <iframe
+        src="<%= '/assignments/' + post.file %>"
+        width="400pxpx"
+        height="200px"
+      ></iframe>
+      <%= post.topic %>
+    </div>
+    <% }) %>
+  </div>
+</div>
+
+<script>
+  var submitBtn = document.querySelector("#submitBtn");
+  var assignmentForm = document.querySelector("#assignmentForm");
+  var timer = 20000;
+  var submissionKey = "lastSubmissionTime";
+  let fileinput = document.querySelector("#file-input");
+  let showPdf = document.getElementById("show-pdf")
+
+  fileinput.addEventListener("change", function(){
+    showPdf.src = URL.createObjectURL(fileinput.files[0]);
+  })
+
+  submitBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    if (!fileinput.files.length) {
+      alert("Please select a file before submitting.");
+      return;
+    }
+
+    var lastSubmissionTime = localStorage.getItem(submissionKey);
+
+    if (
+      !submitBtn.disabled ||
+      (lastSubmissionTime && Date.now() - lastSubmissionTime > timer)
+    ) {
+      submitBtn.disabled = true;
+      localStorage.setItem(submissionKey, Date.now());
+      setTimeout(function () {
+        submitBtn.disabled = false;
+        localStorage.removeItem(submissionKey);
+        alert("You can now submit assignments again!");
+      }, timer);
+      assignmentForm.submit();
+    }
+
+  });
+
+  window.addEventListener("load", function () {
+    var lastSubmissionTime = localStorage.getItem(submissionKey);
+    if (lastSubmissionTime && Date.now() - lastSubmissionTime < timer) {
+      submitBtn.disabled = true;
+
+      var remainingTime = timer - (Date.now() - lastSubmissionTime);
+      updateButtonLabel(remainingTime);
+
+      var intervalId = setInterval(function () {
+        remainingTime -= 1000;
+
+        if (remainingTime <= 0) {
+          clearInterval(intervalId);
+          submitBtn.value = "Submit Assignment";
+          submitBtn.disabled = false;
+          localStorage.removeItem(submissionKey);
+        } else {
+          updateButtonLabel(remainingTime);
+        }
+      }, 1000);
+    }
+  });
+
+  function updateButtonLabel(remainingTime) {
+    var hours = Math.floor(remainingTime / timer);
+    var minutes = Math.floor((remainingTime % timer) / 60000);
+    var seconds = Math.floor((remainingTime % 60000) / 1000);
+
+    submitBtn.value = `Submit Assignment (${hours}h ${minutes}m ${seconds}s)`;
+  }
+</script>
+<% include ./other_pages/partials/footer.ejs %>

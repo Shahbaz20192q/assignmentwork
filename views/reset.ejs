@@ -1,0 +1,21 @@
+<% include ./partials/header.ejs %>
+<% include ./other_pages/partials/navbar.ejs %>
+<div class="form_wrapper">
+  <div class="form_container">
+    <div class="title_container">
+      <h2>Reset Password</h2>
+    </div>
+    <div class="row clearfix">
+      <div class="">
+        <form action="/reset/<%= token %>" method="post">
+          <div class="input_field">
+            <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+            <input type="password" name="password" placeholder="New Password" required />
+          </div>
+          <input class="button" type="submit" value="Reset Password" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ./other_pages/partials/footer.ejs %>

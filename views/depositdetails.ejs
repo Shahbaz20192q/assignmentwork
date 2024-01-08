@@ -1,0 +1,112 @@
+<% include ./partials/header.ejs %>
+<% include ./other_pages/partials/navbar.ejs %>
+
+<h1 class="heading">Deposit History</h1>
+<br />
+<br />
+<main class="receipt-main-section">
+  <%user.deposit.reverse().forEach(function(elem){ %>
+  <div class="container">
+    <div class="receipt_header">
+      <h1>Receipt of Deposit <span>Website Name</span></h1>
+      <p>username: <span>@<%=user.username%></span></p>
+      <p>User ID: <span><%=user._id%></span></p>
+    </div>
+
+    <div class="receipt_body">
+      <div class="date_time_con">
+        <div class="date">
+          <span><%=elem.date.getMonth()+1%></span>/
+          <span><%=elem.date.getDate()%></span>/
+          <span><%=elem.date.getFullYear()%></span>
+        </div>
+        <div class="time">
+          <span><%=elem.date.getHours()%></span>:
+          <span><%=elem.date.getMinutes()%></span>:
+          <span><%=elem.date.getSeconds()%></span>
+        </div>
+      </div>
+
+      <div class="items">
+        <table>
+          <thead>
+            <th>Sr No</th>
+            <th></th>
+            <th>Details</th>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>ID</td>
+              <td><%=elem._id%></td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>TID</td>
+              <td><%=elem.tid%></td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>Bank Name</td>
+              <td><%=elem.bankName%></td>
+            </tr>
+
+            <tr>
+              <td>4</td>
+              <td>Account No</td>
+              <td><%=elem.accountNo%></td>
+            </tr>
+
+            <tr>
+              <td>5</td>
+              <td>Account Holder</td>
+              <td><%=elem.accountHolder%></td>
+            </tr>
+
+            <tr>
+              <td>6</td>
+              <td>Plane</td>
+              <td><%=elem.plane%></td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td>Status</td>
+              <td></td>
+              <td class="status"><%=elem.status%></td>
+            </tr>
+
+            <!-- <tr>
+              <td style="color: red">Reason</td>
+              <td></td>
+              
+              <td style="color: red"></td>
+            </tr> -->
+          </tfoot>
+        </table>
+        <p style="color: red">Reason : <%=elem.reason%></p>
+      </div>
+    </div>
+
+    <h3>Thank You!</h3>
+  </div>
+  <%})%>
+</main>
+
+<script>
+  let status = document.querySelectorAll(".status");
+  status.forEach((element) => {
+    if (element.innerHTML == "Pending") {
+      element.style.color = "#f0960e";
+    } else if(element.innerHTML == "Success"){
+        element.style.color = "green";
+    } else{
+        element.style.color = "red";
+    }
+  });
+</script>
+<% include ./other_pages/partials/footer.ejs %>

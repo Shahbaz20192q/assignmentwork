@@ -1,0 +1,160 @@
+<% include ./partials/header.ejs %>
+<% include ./other_pages/partials/navbar.ejs %>
+
+<div class="cantainer">
+  <div class="main">
+    <div class="profile">
+      <div class="pro-im-na">
+        <div class="labelDiv verification-div" id="verification-div">
+          <div class="name" id="verification"><%=user.verified%></div>
+          <div class="name" id="verificationStatus"></div>
+          &nbsp;
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-patch-check-fill"
+            viewBox="0 0 16 16"
+          >
+            <path id="path"
+              d=""
+            />
+          </svg>
+        </div>
+        <div class="img">
+          <img
+            class="profileimg"
+            src="/images/uploads/<%=user.profileImage%>"
+          />
+        </div>
+        <i class="fa fa-pen edit-icon"></i>
+
+        <div class="labelDiv">
+          <label for="id">User ID :</label> &nbsp; &nbsp;
+          <div class="name" id="id"><%=user._id%></div>
+        </div>
+
+        <div class="labelDiv">
+          <label for="fullname">Full Name :</label> &nbsp; &nbsp;
+          <div class="name" id="Full Name">
+            <span class="name"><%=user.firstName%></span>
+            <span class=""><%=user.lastName%></span>
+          </div>
+        </div>
+        <div class="labelDiv">
+          <label for="username">User Name :</label> &nbsp; &nbsp;
+          <div class="name" id="username"><%=user.username%></div>
+        </div>
+        <div class="labelDiv">
+          <label for="email%">Email :</label>&nbsp;&nbsp;
+          <div class="job" id="email"><%=user.email%></div>
+        </div>
+        <div class="labelDiv">
+          <label for="referralCode">Referral Code :</label>&nbsp;&nbsp;
+          <div class="job" id="referralCode"><%=user.referralCode%></div>
+        </div>
+
+        <div class="labelDiv">
+          <label for="referralCode">Your Plane :</label>&nbsp;&nbsp;
+          <div class="job" id="referralCode"><%=user.plane%></div>
+        </div>
+
+        <div class="labelDiv">
+          <label for="date">Date :</label>&nbsp;&nbsp;
+          <div class="job" id="date">
+            <span
+              ><%=user.date.getDate()%>-<%=user.date.getMonth()+1%>-<%=user.date.getFullYear()%></span
+            >
+            <span
+              ><%=user.date.getHours()%>:<%=user.date.getMinutes()%>:<%=user.date.getSeconds()%></span
+            >
+          </div>
+
+        </div>
+        <div class="labelDiv" id="btn-div">
+          <span id="isAdmin"><%=user.isAdmin%></span>
+          <a class="btn" href="/dashbord">Dash Board</a>
+        </div>
+      </div>
+      <div class="alltion"></div>
+    </div>
+    <div class="viwer">
+      <a href="/profile/assignment">
+        <div class="boxall">
+          <span class="value" id="assignment"><%=user.posts.length%></span>
+          <span class="parameter">Total Assignment</span>
+        </div>
+      </a>
+
+      <a href="/profile/finance">
+        <div class="boxall">
+          <span class="parameter">Rs</span>
+          <span class="value" id="income"><%=user.income%></span>
+        </div>
+      </a>
+
+      <a href="/profile/members">
+        <div class="boxall">
+          <span class="parameter">Members</span>
+          <span class="value"><%=user.members.length%></span>
+        </div>
+      </a>
+    </div>
+  </div>
+  <form
+    hidden
+    id="upload-form"
+    action="/upload"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <input id="input-file" name="image" type="file" />
+  </form>
+</div>
+
+<script>
+  const pen = document.querySelector(".edit-icon");
+  const input = document.querySelector("#input-file");
+  const uploadForm = document.querySelector("#upload-form");
+  let assignmentSpan = document.querySelector("#assignment");
+  let incomeSpan = document.querySelector("#income");
+  let verification = document.querySelector("#verification");
+  let verifiedStatus = document.querySelector("#verificationStatus");
+  let verificationDiv = document.querySelector("#verification-div");
+  let path = document.querySelector("#path");
+  let btnDiv = document.querySelector("#btn-div");
+  let isAdmin = document.querySelector("#isAdmin");
+
+  pen.addEventListener("click", function () {
+    input.click();
+  });
+  input.addEventListener("change", function () {
+    const userChoice = confirm("Do You Want To Change Your Profile Image");
+    if (userChoice) {
+      uploadForm.submit();
+    } else {
+      input.value = null;
+    }
+  });
+
+  window.addEventListener("DOMContentLoaded", function(){
+    if(isAdmin.textContent == "true"){
+      btnDiv.style.display = "block"
+    }
+  })
+
+  function verificationStatus() {
+    if (verification.textContent == "true") {
+      verifiedStatus.textContent = "Verified";
+      verificationDiv.style.color = "rgb(27, 189, 100)";
+      path.setAttribute("d","M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z")
+    } else {
+      verifiedStatus.textContent = "Unverified";
+      verificationDiv.style.color = "rgb(226, 16, 16)";
+      path.setAttribute("d","M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M2.71 12.584c.218.252.454.488.706.707l9.875-9.875a7.034 7.034 0 0 0-.707-.707l-9.875 9.875Z")
+    }
+  }
+  verificationStatus();
+</script>
+<% include ./other_pages/partials/footer.ejs %>

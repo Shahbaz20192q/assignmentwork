@@ -1,0 +1,31 @@
+<footer class="footer">
+    <p>Copyright &copy; assignmentswork.com</p>
+    <div>
+      <nav>
+        <ul>
+          <li><a href="">About Us</a></li>
+          <li><a href="">Contect Us</a></li>
+          <li><a href="">Privicy Policy</a></li>
+          <li><a href="">Disclimer</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    let homeContent = document.querySelector(".home-content");
+
+    document.getElementById("hamburger-icon").addEventListener("click",function(){
+      document.querySelector(".header").classList.toggle("active")
+      homeContent.classList.toggle("active")
+    })
+
+    document.onscroll = function(){
+      document.querySelector(".header").classList.remove("active")
+      homeContent.classList.remove("active")
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/stylesheets/dashboard.css">
+    <title>Dashboard Withdraws</title>
+</head>
+<body>
+    <%include ./parshies/menu.ejs%>
+
+
+    <div class="content">
+     <div class="title-info">
+        <p>Withdraws</p>
+        <form action="/dashbord/withdraw" method="get" class="search_form">
+            <input
+              type="text"
+              name="search"
+              placeholder="Search by ID and account No"
+              value="<%=search %>"
+            />
+            <button type="submit"><i class="fas fa-search"></i></button>
+          </form>
+          <i class="fa fa-align-justify three-line" onclick="toggle()" aria-hidden="true"></i>
+     </div>
+     <div class="tableDiv">
+      <table>
+        <thead>
+          <tr>
+            <td>ID</td>
+      
+            <td>User Name</td>
+      
+            <td>Bank Name</td>
+      
+            <td>Account Number</td>
+      
+            <td>Amount</td>
+      
+            <td>Account Holder</td>
+
+            <td>Assignments</td>
+
+            <td>Total Income</td>
+      
+            <td>Status</td>
+      
+            <td>Edit</td>
+          </tr>
+        </thead>
+        <% withdraws.reverse().forEach(elem => { %>
+        <tbody>
+          <tr>
+            <td><%=elem._id%></td>
+      
+            <td><%=elem.user.username%></td>
+      
+            <td><%=elem.bankName%></td>
+      
+            <td><%=elem.accountNo%></td>
+      
+            <td><%=elem.amount%></td>
+      
+            <td><%=elem.accountHolder%></td>
+
+            <td><%=elem.user.posts.length%></td>
+            
+            <td><%=elem.user.income%></td>
+      
+            <td><%=elem.status%></td>
+      
+            <td><a href="/editwithdrawform/<%=elem.user._id%>">Edit</a></td>
+          </tr>
+        </tbody>
+        <% }); %>
+      </table>
+     </div>
+     <pre>
+     </pre>
+    </div>
+
+</body>
+</html>

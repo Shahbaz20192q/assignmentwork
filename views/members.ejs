@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="/stylesheets/members.css">
+
+<% include ./partials/header.ejs %>
+
+
+<% user.members.forEach(function(elem){ %>
+<div class="container">
+  <div class="verification-div">
+    <div class="name verificationStatus"></div>
+    &nbsp;
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-patch-check-fill"
+      viewBox="0 0 16 16"
+    >
+      <path class="verification-path" d=""></path>
+    </svg>
+    <div class="name verification"><%=elem.verified%></div>
+  </div>
+
+  <div class="user-image">
+    <img src="/images/uploads/<%=elem.profileImage%>" alt="" />
+  </div>
+
+  <div class="content">
+    <label for="name">Full Name</label>
+    <h3 class="name" id="name">
+      <span><%=elem.firstName%></span> <span><%=elem.lastName%></span>
+    </h3>
+
+    <label for="username">User Name</label>
+    <p class="username" id="username">@<%=elem.username%></p>
+
+    <label for="date">Date</label>
+    <p class="username" id="date">
+      <span
+        ><%=elem.date.getDate()%>-<%=elem.date.getMonth()%>-<%=elem.date.getFullYear()%></span
+      >
+      <span
+        ><%=elem.date.getHours()%>:<%=elem.date.getMinutes()%>:<%=elem.date.getSeconds()%></span
+      >
+    </p>
+
+    <label for="income">Income</label>
+    <p id="income"><%=elem.income%></p>
+  </div>
+</div>
+<% }) %>
+
+<script>
+  let verification = document.querySelectorAll(".verification");
+  let verificationStatus = document.querySelectorAll(".verificationStatus");
+  let verificationDiv = document.querySelectorAll(".verification-div")
+
+  verification.forEach((element, index) => {
+    let isVerified = element.textContent === "true";
+    let path = document.querySelectorAll(".verification-path")[index];
+
+    if (isVerified) {
+      path.setAttribute(
+        "d",
+        "M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"
+      );
+      verificationStatus[index].textContent = "Verified";
+      verificationDiv[index].style.color = "rgb(27, 189, 100)"
+    } else {
+      path.setAttribute(
+        "d",
+        "M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M2.71 12.584c.218.252.454.488.706.707l9.875-9.875a7.034 7.034 0 0 0-.707-.707l-9.875 9.875Z"
+      );
+      verificationStatus[index].textContent = "Unverified";
+      verificationDiv[index].style.color = "rgb(226, 16, 16)"
+    }
+  });
+</script>
